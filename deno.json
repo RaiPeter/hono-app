@@ -4,6 +4,7 @@
     "drizzle-kit": "npm:drizzle-kit@^0.31.0",
     "drizzle-orm": "npm:drizzle-orm@^0.42.0",
     "hono": "jsr:@hono/hono@^4.7.7",
+    "hono/jwt": "jsr:@hono/hono@^4.7.7/jwt",
     "postgres": "npm:postgres@^3.4.5",
     "zod": "npm:zod@^3.24.3"
   },
