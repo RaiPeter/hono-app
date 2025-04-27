@@ -3,7 +3,6 @@ import { Context } from "hono";
 import * as userService from "../services/user.service.ts";
 import { CookieOptions } from "hono/utils/cookie";
 import { getCookie, setCookie } from "hono/cookie";
-import { access } from "node:fs";
 
 const createUserSchema = z.object({
   username: z.string().min(3).max(50),
@@ -65,10 +64,15 @@ export async function loginUser(c: Context) {
 
 export async function updateUserAccessToken(c: Context) {
   try {
-    const requestBody = await c.req.json();
-    const refreshToken = requestBody.refreshToken ||
-      getCookie(c, "refreshToken");
-    console.log(refreshToken, "asdfa");
+    let refreshToken;
+
+    try {
+      const body = await c.req.json();
+      refreshToken = body?.refreshToken ?? getCookie(c, "refreshToken");
+    } catch (error) {
+      // Fallback to cookie if JSON parsing fails (e.g., empty body)
+      refreshToken = getCookie(c, "refreshToken");
+    }
 
     if (!refreshToken) {
       return c.json({ message: "Refresh token not found" }, 400);
