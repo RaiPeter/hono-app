@@ -10,7 +10,6 @@ import {
   generateAccessTokenAndRefreshToken,
 } from "../utils/generateToken.ts";
 import { verify } from "hono/jwt";
-import { use } from "hono/jsx";
 
 interface CreateUserInput {
   username: string;

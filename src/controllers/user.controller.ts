@@ -70,6 +70,8 @@ export async function updateUserAccessToken(c: Context) {
       const body = await c.req.json();
       refreshToken = body?.refreshToken ?? getCookie(c, "refreshToken");
     } catch (error) {
+      console.log("Error:", error);
+
       // Fallback to cookie if JSON parsing fails (e.g., empty body)
       refreshToken = getCookie(c, "refreshToken");
     }
